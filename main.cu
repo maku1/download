@@ -85,9 +85,21 @@ int main(int argc, char**argv) {
     //The memory is not cleared. cudaMalloc() returns
     //cudaErrorMemoryAllocation in case of failure.
     float* a , b, c;
-    cudaMalloc*((void**)&a, n*sizeof(float));
-    cudaMalloc*(&b, n*sizeof(float));
-    cudaMalloc*(&c, n*sizeof(float));
+    cudaError_t cuda_ret = cudaMalloc((void**) &A_d, sizeof(float)*n);
+    if(cuda_ret != cudaSuccess)
+    {
+       FATAL("Unable to allocate device memory");
+    }
+    cuda_ret = cudaMalloc((void**) &B_d, sizeof(float)*n);
+    if(cuda_ret != cudaSuccess)
+    {
+       FATAL("Unable to allocate device memory");
+    }
+    cuda_ret = cudaMalloc((void**) &C_d, sizeof(float)*n);
+    if(cuda_ret != cudaSuccess)
+    {
+       FATAL("Unable to allocate device memory");
+    }
 
 
 
@@ -136,8 +148,8 @@ int main(int argc, char**argv) {
 
     //INSERT CODE HERE
   
-
-   vecAddKernel<<< 1,n >>>(A_h, B_h, C_h, n);
+    dim3 gridDim, blockDim;
+    vecAddKernel<<< gridDim, blockDim >>> (A_d, B_d, C_d, n);
    
    
 
@@ -176,10 +188,15 @@ int main(int argc, char**argv) {
     free(C_h);
 
     //INSERT CODE HERE
-    cudaFree(a);
-    cudaFree(b);
-    cudaFree(c);
-
+     cudaFree(b);
+     cuda_ret = cudaFree(A_d);
+	    if(cuda_ret != cudaSuccess) FATAL("Unable to free CUDA memory");
+     cudaFree(b);
+     cuda_ret = cudaFree(B_d);
+	    if(cuda_ret != cudaSuccess) FATAL("Unable to free CUDA memory");
+     cudaFree(c);
+     cuda_ret = cudaFree(C_d);
+	    if(cuda_ret != cudaSuccess) FATAL("Unable to free CUDA memory");
 
     return 0;
 
