@@ -85,7 +85,7 @@ int main(int argc, char**argv) {
     //The memory is not cleared. cudaMalloc() returns
     //cudaErrorMemoryAllocation in case of failure.
     float* a , b, c;
-    cudaMalloc*(&a, n*sizeof(float));
+    cudaMalloc*((void**)&a, n*sizeof(float));
     cudaMalloc*(&b, n*sizeof(float));
     cudaMalloc*(&c, n*sizeof(float));
 
