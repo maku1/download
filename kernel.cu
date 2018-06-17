@@ -13,17 +13,22 @@
 __global__ void vecAddKernel(float* A, float* B, float* C, int n) {
 
     // Calculate global thread index based on the block and thread indices ----
-    int i =  threadIdx.x;
+  
     //INSERT KERNEL CODE HERE
-    
-    C[i] = A[i] + B[i];
+      int i =  threadIdx.x + blockidx.x * blockDim.x;
+      if(i < n)
+      {
+        C[i] = A[i] + B[i];
+      }
 
 
 
     // Use global index to determine which elements to read, add, and write ---
 
     //INSERT KERNEL CODE HERE
-
+   //waits until all threads within the same block has reached the command and all threads within a wrap
+   //one can specify synchronization points in the kernel by calling the __syncthreads()
+   __syncthreads();
 
 
 
