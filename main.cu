@@ -10,6 +10,7 @@
 #include <time.h>
 #include "support.h"
 #include "kernel.cu"
+#include "cuda.h"
 
 //block size
 #define  BLOCK_SIZE 512
