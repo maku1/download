@@ -13,7 +13,7 @@
 __global__ void vecAddKernel(float* A, float* B, float* C, int n) {
 
     // Calculate global thread index based on the block and thread indices ----
-    int i = blockId.x * BLOCK_SIZE + threadIdx.x;
+    int i =  threadIdx.x;
     //INSERT KERNEL CODE HERE
     
     C[i] = A[i] + B[i];

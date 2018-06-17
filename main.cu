@@ -83,6 +83,7 @@ int main(int argc, char**argv) {
     //The allocated memory is suitably aligned for any kind of variable.
     //The memory is not cleared. cudaMalloc() returns
     //cudaErrorMemoryAllocation in case of failure.
+    float* a , b, c;
     cudaMalloc*(&a, n*sizeof(float));
     cudaMalloc*(&b, n*sizeof(float));
     cudaMalloc*(&c, n*sizeof(float));
@@ -115,7 +116,7 @@ int main(int argc, char**argv) {
 //Calling cudaMemcpy() with dst and src pointers that do not match
 //the direction of the copy results in an undefined behavior.
 
-     float* a , b, c;
+     
      cudaMemcpy(a, A_h,  n*sizeof(float), cudaMemcpyDeviceToHost);
      cudaMemcpy(b, B_h,  n*sizeof(float), cudaMemcpyDeviceToHost);
      cudaMemcpy(c, C_h, n*sizeof(float), cudaMemcpyDeviceToHost);
