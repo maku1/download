@@ -12,9 +12,6 @@
 #include "kernel.cu"
 #include "cuda.h"
 
-//block size
-#define  BLOCK_SIZE 512
-#define  VECTOR_SIZE 100
 
 int main(int argc, char**argv) {
    printf("copy\n");
