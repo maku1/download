@@ -132,9 +132,9 @@ int main(int argc, char**argv) {
 //the direction of the copy results in an undefined behavior.
 
      
-     cudaMemcpy(a, A_h,  n*sizeof(float), cudaMemcpyDeviceToHost);
-     cudaMemcpy(b, B_h,  n*sizeof(float), cudaMemcpyDeviceToHost);
-     cudaMemcpy(C_d, C_h, n*sizeof(float), cudaMemcpyDeviceToHost);
+     cudaMemcpy(A_d, A_h,  n*sizeof(float), cudaMemcpyDeviceToHost);
+     cudaMemcpy(B_d, B_h,  n*sizeof(float), cudaMemcpyDeviceToHost);
+     cudaMemcpy(C_d, C_h,  n*sizeof(float), cudaMemcpyDeviceToHost);
      
      
 
