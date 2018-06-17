@@ -84,17 +84,19 @@ int main(int argc, char**argv) {
     //The allocated memory is suitably aligned for any kind of variable.
     //The memory is not cleared. cudaMalloc() returns
     //cudaErrorMemoryAllocation in case of failure.
-    float* a , b, c;
-    cudaError_t cuda_ret = cudaMalloc((void**) &A_d, sizeof(float)*n);
+    float* A_d ;
+     cuda_ret = cudaMalloc((void**) &A_d, sizeof(float)*n);
     if(cuda_ret != cudaSuccess)
     {
        FATAL("Unable to allocate device memory");
     }
+    float* B_d ;
     cuda_ret = cudaMalloc((void**) &B_d, sizeof(float)*n);
     if(cuda_ret != cudaSuccess)
     {
        FATAL("Unable to allocate device memory");
     }
+    float* C_d ;
     cuda_ret = cudaMalloc((void**) &C_d, sizeof(float)*n);
     if(cuda_ret != cudaSuccess)
     {
@@ -132,7 +134,7 @@ int main(int argc, char**argv) {
      
      cudaMemcpy(a, A_h,  n*sizeof(float), cudaMemcpyDeviceToHost);
      cudaMemcpy(b, B_h,  n*sizeof(float), cudaMemcpyDeviceToHost);
-     cudaMemcpy(c, C_h, n*sizeof(float), cudaMemcpyDeviceToHost);
+     cudaMemcpy(C_d, C_h, n*sizeof(float), cudaMemcpyDeviceToHost);
      
      
 
@@ -167,9 +169,9 @@ int main(int argc, char**argv) {
     startTime(&timer);
 
     //INSERT CODE HERE
-     cudaMemcpy(A_h, a,  n*sizeof(float), cudaMemcpyDeviceToHost);
-     cudaMemcpy(B_h, b,  n*sizeof(float), cudaMemcpyDeviceToHost);
-     cudaMemcpy(C_h, c,  n*sizeof(float), cudaMemcpyDeviceToHost);
+     cudaMemcpy(A_h, A_d,  n*sizeof(float), cudaMemcpyDeviceToHost);
+     cudaMemcpy(B_h, B_d,  n*sizeof(float), cudaMemcpyDeviceToHost);
+     cudaMemcpy(C_h, C_d,  n*sizeof(float), cudaMemcpyDeviceToHost);
 
 
     cudaDeviceSynchronize();
@@ -188,13 +190,13 @@ int main(int argc, char**argv) {
     free(C_h);
 
     //INSERT CODE HERE
-     cudaFree(b);
+     cudaFree(A_d);
      cuda_ret = cudaFree(A_d);
 	    if(cuda_ret != cudaSuccess) FATAL("Unable to free CUDA memory");
-     cudaFree(b);
+     cudaFree(B_d);
      cuda_ret = cudaFree(B_d);
 	    if(cuda_ret != cudaSuccess) FATAL("Unable to free CUDA memory");
-     cudaFree(c);
+     cudaFree(C_d);
      cuda_ret = cudaFree(C_d);
 	    if(cuda_ret != cudaSuccess) FATAL("Unable to free CUDA memory");
 
