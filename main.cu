@@ -187,13 +187,13 @@ int main(int argc, char**argv) {
     free(C_h);
 
     //INSERT CODE HERE
-     cudaFree(A_d);
+    
      cuda_ret = cudaFree(A_d);
 	    if(cuda_ret != cudaSuccess) FATAL("Unable to free CUDA memory");
-     cudaFree(B_d);
+     
      cuda_ret = cudaFree(B_d);
 	    if(cuda_ret != cudaSuccess) FATAL("Unable to free CUDA memory");
-     cudaFree(C_d);
+     
      cuda_ret = cudaFree(C_d);
 	    if(cuda_ret != cudaSuccess) FATAL("Unable to free CUDA memory");
 
